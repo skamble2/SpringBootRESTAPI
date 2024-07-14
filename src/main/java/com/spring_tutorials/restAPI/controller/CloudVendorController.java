@@ -1,9 +1,13 @@
 package com.spring_tutorials.restAPI.controller;
 
 import com.spring_tutorials.restAPI.model.cloudVendor;
+import com.spring_tutorials.restAPI.service.CloudVendorService;
+
+import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,35 +16,48 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/cloudvendor")
-public class CloudAPIService {
+public class CloudVendorController {
 	
-	cloudVendor CloudVendor;
+	CloudVendorService cloudVendorService;
 	
+	public CloudVendorController(CloudVendorService cloudVendorService) {
+		this.cloudVendorService = cloudVendorService;
+	}
+
+	//Read Specific Cloud Vendor Details
 	@GetMapping("{vendorID}")
-	public cloudVendor getCloudVendorDetails(String vendorID) {
-		return CloudVendor;
-				
-		//new cloudVendor("C1","Vendor 1","Address 1","XXXXX");
+	public cloudVendor getCloudVendorDetails(@PathVariable("vendorID") String vendorID) {
+	
+		return cloudVendorService.getCloudVendor(vendorID);
+
+	}
+	
+	//Read All Cloud Vendor Details from DB
+	@GetMapping()
+	public List<cloudVendor> getAllCloudVendorDetails() {
+	
+		return cloudVendorService.getAllCloudVendors();
+
 	}
 	
 	@PostMapping
 	public String createCloudVendorDetails(@RequestBody cloudVendor CloudVendor) {
 		
-		this.CloudVendor = CloudVendor;
+		cloudVendorService.createCloudVendor(CloudVendor);
 		return "Cloud Vendor Created Successfully";
 	}
 	
 	@PutMapping
 	public String updateCloudVendorDetails(@RequestBody cloudVendor CloudVendor) {
 		
-		this.CloudVendor = CloudVendor;
+		cloudVendorService.updateCloudVendor(CloudVendor);
 		return "Cloud Vendor Updated Successfully";
 	}
 	
 	@DeleteMapping("{vendorID}")
-	public String deleteCloudVendorDetails(String vendorID) {
+	public String deleteCloudVendorDetails(@PathVariable("vendorID") String vendorID) {
 		
-		this.CloudVendor = null;
+		cloudVendorService.deleteCloudVendor(vendorID);
 		return "Cloud Vendor Deleted Successfully";
 	}
 	
