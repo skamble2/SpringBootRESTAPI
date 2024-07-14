@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spring_tutorials.restAPI.exception.CloudVendorNotFoundException;
 import com.spring_tutorials.restAPI.model.cloudVendor;
 import com.spring_tutorials.restAPI.repository.CloudVendorRepository;
 import com.spring_tutorials.restAPI.service.CloudVendorService;
@@ -44,11 +45,17 @@ public class CloudVendorServiceImpl implements CloudVendorService{
 
 	@Override
 	public cloudVendor getCloudVendor(String cloudVendorID) {	
+		
+		//More Business Logic
+		if(cloudVendorRepository.findById(cloudVendorID).isEmpty())
+			throw new CloudVendorNotFoundException("Requested Cloud Vendor does not exist");
 		return cloudVendorRepository.findById(cloudVendorID).get();
 	}
 
 	@Override
 	public List<cloudVendor> getAllCloudVendors() {
+		
+		//More Business Logic
 		return cloudVendorRepository.findAll();
 	}
 
