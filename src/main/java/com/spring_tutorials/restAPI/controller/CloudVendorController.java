@@ -1,10 +1,13 @@
 package com.spring_tutorials.restAPI.controller;
 
 import com.spring_tutorials.restAPI.model.cloudVendor;
+import com.spring_tutorials.restAPI.response.ResponseHandler;
 import com.spring_tutorials.restAPI.service.CloudVendorService;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +29,10 @@ public class CloudVendorController {
 
 	//Read Specific Cloud Vendor Details
 	@GetMapping("{vendorID}")
-	public cloudVendor getCloudVendorDetails(@PathVariable("vendorID") String vendorID) {
-	
-		return cloudVendorService.getCloudVendor(vendorID);
+	public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorID") String vendorID) {
+		
+		return ResponseHandler.responseBuilder("Requested Vendor Details are given here", HttpStatus.OK, cloudVendorService.getCloudVendor(vendorID));
+		
 
 	}
 	
