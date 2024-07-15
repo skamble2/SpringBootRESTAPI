@@ -6,6 +6,7 @@ import com.spring_tutorials.restAPI.service.CloudVendorService;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +30,7 @@ public class CloudVendorController {
 
 	//Read Specific Cloud Vendor Details
 	@GetMapping("{vendorID}")
+	@ApiOperation(value = "Cloud vendor id", notes="Provides cloud vendor details", response = ResponseEntity.class)
 	public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorID") String vendorID) {
 		
 		return ResponseHandler.responseBuilder("Requested Vendor Details are given here", HttpStatus.OK, cloudVendorService.getCloudVendor(vendorID));

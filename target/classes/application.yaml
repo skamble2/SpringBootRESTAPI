@@ -3,6 +3,6 @@ spring:
     url: jdbc:mysql://localhost:3306/cloud_vendors?useSSL=false
     username: root
     password: password
-    
+
 #JPA Settings
   jpa.hibernate.ddl_auto: create
